@@ -164,5 +164,59 @@ plt.show()
 
 ### Results
 
-[Visualization of Top Salary Distributions]()
+![Visualization of Top Salary Distributions](3_Project/images/Salary_distributions_data_role.png)
 
+### Insights
+
+- There's a significant variation in salary ranges across different job titles. Senior Data Scientist positions tend to have the highest salary potential, with up to $600K, indicating the high value placed on advanced data skills and experience in the industry.
+
+- Senior Data Engineer and Senior Data Scientist roles show a considerable number of outliers on the higher end of the salary spectrum, suggesting that exceptional skills or circumstances can lead to high pay in these roles. In contrast, Data Analyst roles demonstrate more consistency in salary, with fewer outliers.
+
+- The median salaries increase with the seniority and specialization of the roles. Senior roles (Senior Data Scientist, Senior Data Engineer) not only have higher median salaries but also larger differences in typical salaries, reflecting greater variance in compensation as responsibilities increase.
+
+### Highest Paid & Most Demanded Skills for Data Analysts
+
+Next, I narrowed my analysis and focused only on data analyst roles. I looked at the highest-paid skills and the most in-demand skills. I used two bar charts to showcase these.
+
+### Visualize data
+
+```python
+fig, ax = plt.subplots(2,1)
+
+sns.set_theme(style='ticks')
+# Top 10 Highest Paid Skills for Data Analysis
+# using seaborn to plot our data, to put the colors on the bar first we need to define the hue which in this case is median then decide the color palette
+# and with adding _r in the palette we can reverse the color oalette of the bars
+sns.barplot(data = df_da_top_salary, x = 'median', y = df_da_top_salary.index, ax = ax[0], hue = 'median', palette = 'dark:b_r')
+
+# df_da_top_salary.plot(kind = 'barh', y = 'median', ax = ax[0], legend = False)
+# ax[0].invert_yaxis()
+ax[0].legend().remove()
+ax[0].set_title('Top 10 Highest Paid Skills for Data Analysts in US')
+ax[0].set_xlabel('')
+ax[0].set_ylabel('')
+ax[1].set_xlim(ax[0].get_xlim())  # we can set the x limit of the 1 graph to the 2nd graph
+ax[0].xaxis.set_major_formatter(plt.FuncFormatter(lambda x, pos: f'${int(x/1000)}K'))
+
+# Top 10 in-demand Skills for Data Analysis
+# using seaborn to plot our data, to put the colors on the bar first we need to define the hue which in this case is median then decide the color palette
+
+sns.barplot(data = df_da_skills , x = 'median', y = df_da_skills.index, ax = ax[1], hue = 'median', palette = 'light:b')
+
+# df_da_skills.plot(kind = 'barh', y = 'median', ax = ax[1], legend = False)
+# ax[1].invert_yaxis()
+ax[1].legend().remove()
+ax[1].set_title('Top 10 most in-demand skills for Data Analysts in US')
+ax[1].set_xlabel('')
+ax[1].set_ylabel('Median Salary (USD)')
+ax[1].xaxis.set_major_formatter(plt.FuncFormatter(lambda x, pos: f'${int(x/1000)}K'))
+
+plt.tight_layout()
+plt.show()
+```
+
+### Results
+
+Here's the breakdown of the highest-paid & most in-demand skills for data analysts in the US:
+
+![Visualization of Highest paid skills for Data Analyst in US]()
