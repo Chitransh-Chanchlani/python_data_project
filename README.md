@@ -219,4 +219,55 @@ plt.show()
 
 Here's the breakdown of the highest-paid & most in-demand skills for data analysts in the US:
 
-![Visualization of Highest paid skills for Data Analyst in US]()
+![Visualization of Highest paid skills for Data Analyst in US](3_Project/images/Highest_paid_skills.png)
+
+### Insights:
+
+- The top graph shows specialized technical skills like dplyr, Bitbucket, and Gitlab are associated with higher salaries, some reaching up to $200K, suggesting that advanced technical proficiency can increase earning potential.
+
+- The bottom graph highlights that foundational skills like Excel, PowerPoint, and SQL are the most in-demand, even though they may not offer the highest salaries. This demonstrates the importance of these core skills for employability in data analysis roles.
+
+- There's a clear distinction between the skills that are highest paid and those that are most in-demand. Data analysts aiming to maximize their career potential should consider developing a diverse skill set that includes both high-paying specialized skills and widely demanded foundational skills.
+
+## 4. What are the most optimal skills to learn for Data Analysts?
+
+To identify the most optimal skills to learn ( the ones that are the highest paid and highest in demand) I calculated the percent of skill demand and the median salary of these skills. To easily identify which are the most optimal skills to learn.
+
+View my notebook with detailed steps here: [5_Optimal_Skills](3_Project/5_optimal_skills.ipynb).
+
+Visualize Data
+
+```python
+from adjustText import adjust_text
+
+
+df_da_skills_high_demand.plot(kind='scatter', x='skill_percent', y='median_salary')
+
+# Prepare texts for adjustText
+texts = []
+for i, txt in enumerate(df_da_skills_high_demand.index):
+ texts.append(plt.text(df_da_skills_high_demand['skill_percent'].iloc[i], df_da_skills_high_demand['median_salary'].iloc[i], txt))
+
+# Adjust text to avoid overlap
+adjust_text(texts, arrowprops=dict(arrowstyle='->', color='gray'))
+
+# formatting the y axis by calling plt.gca()
+from matplotlib.ticker import PercentFormatter
+ax = plt.gca() 
+ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda y, pos:f'${int (y/1000)}K'))
+ax.xaxis.set_major_formatter(PercentFormatter(decimals = 0))
+          
+# Set axis labels, title, and legend
+plt.xlabel('Percent of Data Analyst Jobs')
+plt.ylabel('Median Yearly Salary')
+plt.title('Most Optimal Skills for Data Analyst in the US')
+
+# Adjust layout and display plot 
+plt.tight_layout()
+plt.show()
+```
+
+### Results
+
+
+
