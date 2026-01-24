@@ -65,7 +65,7 @@ Each Jupyter notebook for this project aimed at investigating specific aspects o
 
 To find the most demanded skills for the top 3 most popular data roles. I filtered out those positions by which ones were the most popular, and got the top 5 skills for these top 3 roles. This query highlights the most popular job titles and their top skills, showing which skills I should pay attention to depending on the role I'm targeting.
 
-View my notebook with detailed steps here: [2_Skill_Demand](C:\python_data_project\3_Project\2_skills_counting.ipynb).
+View my notebook with detailed steps here: [2_Skill_Demand](3_Project/2_skills_counting.ipynb).
 
 ### Visualize Data
 
@@ -97,8 +97,72 @@ plt.show()
 
 ### Results
 
-[Visualization of Top Skill for Data Nerds]
-(images/Skill_demand_all_data_role.png)
+![Visualization of Top Skill for Data Nerds](3_Project/images/Skill_demand_all_data_role.png)
 
+### Insights:
+- SQL is the most requested skill for Data Analysts and Data Scientists, with it in over half the job postings for both roles. For Data Engineers, Python is the most sought-after skill, appearing in 68% of job postings.
+- Data Engineers require more specialized technical skills (AWS, Azure, Spark) compared to Data Analysts and Data Scientists who are expected to be proficient in more general data management and analysis tools (Excel, Tableau).
+- Python is a versatile skill, highly demanded across all three roles, but most prominently for Data Scientists (72%) and Data Engineers (65%).
 
+## 2. How are in-demand skills trending for Data Analysts?
+
+To find how skills are trending in 2023 for Data Analysts, I filtered data analyst positions and grouped the skills by the month of the job postings. This got me the top 5 skills of data analysts by month, showing how popular skills were throughout 2023.
+
+View my notebook with detailed steps here: [3_Skills_Trend](3_Project/3_Skill_Trend.ipynb).
+
+### Visualize Data
+
+```python
+# plotting the top 5 skills in demand
+df_plot = df_da_perc.iloc[:,:5]
+sns.lineplot(data = df_plot, dashes = False, palette = 'tab10')
+sns.despine()
+
+plt.title('Trending Top Skills for Data Analyst in US')
+plt.ylabel('Likelihood in Job Posting')
+plt.xlabel(2023)
+plt.legend().remove()
+
+# formatting the text on the y axis and on the lines with percentformatter from matplotlib
+from matplotlib.ticker import PercentFormatter
+ax = plt.gca()
+ax.yaxis.set_major_formatter(PercentFormatter(decimals = 0))
+for i in range(5): 
+		plt.text(11.2, df_plot.iloc[-1,i], df_plot.columns[i]) # using this to apply text on the lines
+```
+
+### Insights:
+
+- SQL remains the most consistently demanded skill throughout the year, although it shows a gradual decrease in demand.
+- Excel experienced a significant increase in demand starting around September, surpassing both Python and Tableau by the end of the year.
+- Both Python and Tableau show relatively stable demand throughout the year with some fluctuations but remain essential skills for data analysts. Power BI, while less demanded compared to the others, shows a slight upward trend towards the year's end.
+
+## 3. How well do jobs and skills pay for Data Analysts?
+
+To identify the highest-paying roles and skills, I only got jobs in the United States and looked at their median salary. But first I looked at the salary distributions of common data jobs like Data Scientist, Data Engineer, and Data Analyst, to get an idea of which jobs are paid the most.
+
+View my notebook with detailed steps here: [4_Salary_Analysis](3_Project/4_Salary_Analysis.ipynb).
+
+### Visualize Data
+
+```python
+# using sns boxplot to plot the data
+
+sns.boxplot(data = df_us_top6, x = 'salary_year_avg', y = 'job_title_short', order = job_order)
+sns.set_theme(style = 'ticks')
+plt.title('Salary Distribution in the US')
+plt.xlabel('Yearly salary in USD')
+plt.ylabel('')
+plt.xlim(0,60000)
+
+# setting x-axis in desired format
+ax = plt.gca()
+ax.xaxis.set_major_formatter(plt.FuncFormatter(lambda x, pos: f'${int(x/1000)}K'))
+plt.xlim(0,600000)
+plt.show()
+```
+
+### Results
+
+[Visualization of Top Salary Distributions]()
 
