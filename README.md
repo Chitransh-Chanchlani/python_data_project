@@ -269,5 +269,55 @@ plt.show()
 
 ### Results
 
+![Visualize data for the most optimal skills for data analysts in US](3_Project/images/optimal_skills_data_analyst_US.png)
+
+### Insights:
+
+- The skill Oracle appears to have the highest median salary of nearly $97K, despite being less common in job postings. This suggests a high value placed on specialized database skills within the data analyst profession.
+
+- More commonly required skills like Excel and SQL have a large presence in job listings but lower median salaries compared to specialized skills like Python and Tableau, which not only have higher salaries but are also moderately prevalent in job listings.
+
+- Skills such as Python, Tableau, and SQL Server are towards the higher end of the salary spectrum while also being fairly common in job listings, indicating that proficiency in these tools can lead to good opportunities in data analytics.
+
+### Visualizing Different Techonologies
+
+Let's visualize the different technologies as well in the graph. We'll add color labels based on the technology
+
+### Visualize Data
+
+```python 
+from adjustText import adjust_text
+
+# df_plot.plot(kind='scatter', x='skill_percent', y='median_salary')
+sns.scatterplot(data = df_plot, x = 'skill_percent', y = 'median_salary', hue = 'technology')
+sns.despine()
+sns.set_theme(style ='ticks')
+
+# Prepare texts for adjustText
+texts = []
+for i, txt in enumerate(df_da_skills_high_demand.index):
+ texts.append(plt.text(df_da_skills_high_demand['skill_percent'].iloc[i], df_da_skills_high_demand['median_salary'].iloc[i], txt))
+
+# Adjust text to avoid overlap
+adjust_text(texts, arrowprops=dict(arrowstyle='->', color='gray'))
+
+# formatting the y axis by calling plt.gca()
+from matplotlib.ticker import PercentFormatter
+ax = plt.gca() 
+ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda y, pos:f'${int (y/1000)}K'))
+ax.xaxis.set_major_formatter(PercentFormatter(decimals = 0))
+          
+# Set axis labels, title, and legend
+plt.xlabel('Percent of Data Analyst Jobs')
+plt.ylabel('Median Yearly Salary')
+plt.title('Most Optimal Skills for Data Analyst in the US')
+
+# Adjust layout and display plot 
+plt.show()
+```
+
+### Results
+
+[Visualization of most optimal skills by technologies]()
 
 
