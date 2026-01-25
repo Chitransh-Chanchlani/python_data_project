@@ -130,6 +130,9 @@ ax.yaxis.set_major_formatter(PercentFormatter(decimals = 0))
 for i in range(5): 
 		plt.text(11.2, df_plot.iloc[-1,i], df_plot.columns[i]) # using this to apply text on the lines
 ```
+### Results
+
+![Visualization of trending skills for Data Analyst in US](3_Project/images/trending_data_analyst_skills_US.png)
 
 ### Insights:
 
